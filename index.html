@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Selected engineering work by Clayton Naber at Naber Research: measurement, simulation, design and documentation.">
+<meta name="theme-color" content="#2A2F2F">
+<title>Engineering Work | Clayton Naber | Naber Research</title>
+<link rel="stylesheet" href="assets/site.css">
+<link rel="icon" href="assets/img/nr-parent.png" type="image/png">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+ <div class="wrap brandline"><a href="#top" aria-label="Naber Research home"><img class="mark" src="assets/img/nr-parent-dark.png" alt="Naber Research"></a><span class="signature">Pro-level engineering for real racers.</span></div>
+</header>
+<main id="main">
+ <section class="hero wrap" id="top">
+  <p class="eyebrow">Clayton Naber · Naber Research</p>
+  <h1>From measurement<br class="desktop"> to engineering decisions.</h1>
+  <p class="lead">I build engine models around test data, then use the models to help decide what to change in the hardware.</p>
+  <p>I’m a mechanical engineer and the owner of Naber Research, an independent powertrain engineering practice. My work connects cylinder pressure measurement, valvetrain testing, gas dynamics, simulation, CAD and build documentation.</p>
+  <ol class="pipeline" aria-label="Engineering workflow">
+   <li><strong>Measure</strong><span>Pressure, motion, flow</span></li><li><strong>Calibrate</strong><span>Test data into models</span></li><li><strong>Simulate</strong><span>Cycle, dynamics, CFD</span></li><li><strong>Design</strong><span>Cam, spring, port</span></li><li><strong>Document</strong><span>Test and build records</span></li>
+  </ol>
+  <p class="return">↳ Test bench → model → hardware → test bench</p>
+  <nav aria-label="Selected work"><a href="#valvetrain">Valvetrain</a><a href="#pressure">Cylinder pressure</a><a href="#cam">Cam design</a><a href="#flow">Port &amp; flow</a><a href="#documentation">Build documentation</a></nav>
+  <aside class="notice"><strong>About these examples.</strong> Real-data plots have normalized, masked scales; project identifiers and operating conditions are omitted. The cam is a synthetic example. Figures show the engineering workflow, not a promise of model accuracy.</aside>
+ </section>
+ <section class="section wrap" id="valvetrain">
+  <div class="section-head"><div><p class="eyebrow">Valvetrain Testing &amp; Simulation</p><h2>Measure the motion.<br>Question the model.</h2></div><span class="status">Real data · scales masked</span></div>
+  <div class="prose"><p>Spintron measurements make valve motion visible. I compare a clean, low-speed Spintron lift measurement with a fitted OpenModelica model in VTsim, looking at the whole event, including closing and seating, not just peak lift.</p><p>This is a dated, fitted development case from September 2026. It is not the current production model and not a validated operating envelope. Both traces use the same cam-referenced alignment and the same lift normalization. The traces were not shifted independently to improve agreement.</p></div>
+  <figure class="wide"><a href="assets/img/valvetrain_overlay.png"><img src="assets/img/valvetrain_overlay.png" alt="Normalized Spintron valve lift and fitted VTsim model overlay across the full lift event, with a closing and seating detail. Axis scales are masked." loading="lazy"></a><figcaption>Low-speed Spintron measurement (solid) and a fitted VTsim development model from September 2026 (dashed). Same alignment and normalization for both traces; no independent shifting. Lift, speed, part and operating-condition values are withheld. Tap a figure to enlarge.</figcaption></figure>
+  <div class="grid two">
+   <article class="card"><h3>A spring model that follows the test</h3><p>Measured force versus height is the starting point for spring fitting. Body rate, the approach to coil bind and model residuals are checked separately; the tester’s post-bind stiffness is not treated as spring stiffness.</p><figure><a href="assets/img/spring_fit.png"><img src="assets/img/spring_fit.png" alt="Normalized measured spring force versus installed height compared with the fitted VTsim spring model. No numerical axis values are shown." loading="lazy"></a><figcaption>Real spring-test data and fitted model. Force and height are normalized; the operating range and part identity are masked.</figcaption></figure></article>
+   <article class="card cream"><h3>From fitted spring to CAD</h3><p>The spring workflow also creates helix geometry in FreeCAD. The model and CAD need to describe the same spring, not just share a label.</p><figure><a href="assets/img/spring_render.png"><img class="render" src="assets/img/spring_render.png" alt="Scale-free render of nested inner and outer spring helices generated in FreeCAD." loading="lazy"></a><figcaption>Render tessellated from the FreeCAD spring document. Dimensions, labels, coordinate axes and source-file metadata are not included.</figcaption></figure></article>
+  </div>
+ </section>
+ <section class="section wrap" id="pressure">
+  <div class="section-head"><div><p class="eyebrow">Engine Pressure Measurement &amp; Simulation</p><h2>Pressure data is a constraint,<br>not decoration.</h2></div><span class="status progress">Single-cylinder work in progress</span></div>
+  <div class="grid text-figure">
+   <div><p>I use AVL IndiCom cylinder pressure measurements and indicating analysis to examine combustion and gas exchange, and to guide development of Wind Section / IC-core.</p><p>IC-core is a wide-open-throttle, one-dimensional engine cycle model with gas dynamics, thermodynamics, heat transfer and measured valve-lift input. The work is being extended from a single-cylinder structure to multiple cylinders.</p><div class="callout"><strong>This is not a correlation claim.</strong><p>The plot is an archived, early single-cylinder model snapshot beside measured pressure. The disagreement is part of the development work. Multi-cylinder extension and correlation remain under way.</p></div><p class="small">Both traces use a common pressure reference and a common volume reference before plotting on logarithmic axes. Units, absolute scale, tick values and operating conditions are fully masked. No raw data is included.</p></div>
+   <figure><a href="assets/img/pv_loglog.png"><img src="assets/img/pv_loglog.png" alt="Measured and early predicted pressure-volume loops on masked logarithmic axes. The prediction differs substantially from measurement; single-cylinder development is in progress." loading="lazy"></a><figcaption>Measured and predicted log P versus log V. Scales and units intentionally withheld. A model-development comparison, not proof of agreement.</figcaption></figure>
+  </div>
+ </section>
+ <section class="section wrap" id="cam">
+  <div class="section-head"><div><p class="eyebrow">CamProfileDesignStudio</p><h2>Design motion first.<br>Then the lobe.</h2></div><span class="status synthetic">Synthetic example</span></div>
+  <div class="grid text-figure"><div><p>CamProfileDesignStudio works in the valve-motion domain, using a multi-polynomial cam profile method. Lift, velocity and acceleration are considered together before kinematic transforms produce tappet motion and cam geometry.</p><p>The broader workflow supports profile diagnostics, rocker kinematics and pitch-radius output for cam grinding. It is a design tool, not a substitute for dynamic testing.</p><div class="callout"><strong>A made-up cam, not an engine program.</strong><p>This figure was generated by CamProfileDesignStudio from a generic, symmetric example deck. All values are synthetic. Nothing here identifies an actual cam or customer engine.</p></div></div>
+  <figure><a href="assets/img/cam_example.png"><img src="assets/img/cam_example.png" alt="Synthetic generic cam example generated with CamProfileDesignStudio: lift, velocity and acceleration plotted against cam angle. All displayed numbers belong to this invented example." loading="lazy"></a><figcaption>Synthetic example generated with the MPOL2 five-segment method. Numerical units are shown only here because this is not real engine data.</figcaption></figure></div>
+ </section>
+ <section class="section wrap" id="flow">
+  <div class="section-head"><div><p class="eyebrow">Port Flow CAD &amp; OpenFOAM</p><h2>Geometry that can be meshed.<br>Boundary conditions that can be checked.</h2></div><span class="status">Generic geometry · masked CFD</span></div>
+  <div class="grid two">
+   <article class="card cream"><h3>Port Flow CAD</h3><p>A prompt-and-image-guided FreeCAD workflow turns an intake-port concept into a solid fluid domain for meshing. The render shows an idealized parametric port, not a scanned internal passage.</p><figure><a href="assets/img/port_render.png"><img class="render" src="assets/img/port_render.png" alt="Scale-free copper render of an idealized parametric intake-port solid generated in FreeCAD." loading="lazy"></a><figcaption>Naber Research FreeCAD intake-port solid, rendered from a tessellation. Scale, dimensions and source identifiers are omitted; no CAD or mesh download is provided.</figcaption></figure></article>
+   <article class="card"><h3>Cd study: CFD back into the cycle model</h3><p>Generic pipe-mouth cases in OpenFOAM examine how inlet lip radius and pressure ratio affect discharge coefficient. The resulting Cd surface supplies boundary conditions to the one-dimensional model.</p><p>Checks include station definitions, mass-flow accounting and predictions at new CFD cases. I use both interpolation residuals and held-out checks; passing through the known points alone is not validation.</p><p class="small">The trend below uses generic geometry, not a customer port. The second panel compares spline predictions made before new CFD cases were run with the values those cases produced. Axes are masked. It is not a trend of measured engine flow or power.</p></article>
+  </div>
+  <figure class="wide"><a href="assets/img/cd_study.png"><img src="assets/img/cd_study.png" alt="Masked generic OpenFOAM study showing discharge coefficient against inlet lip radius at several pressure ratios, alongside predictions compared with newly run CFD cases." loading="lazy"></a><figcaption>Left: the inlet-radius trend at low, middle and high pressure ratio. Right: three predictions compared with new CFD results. All cases use generic pipe-mouth geometry; no absolute pressure, flow or geometry scale is disclosed.</figcaption></figure>
+ </section>
+ <section class="section wrap" id="documentation">
+  <p class="eyebrow">Engine Build Documentation</p>
+  <div class="grid two">
+   <div><h2>Keep the reasoning with the engine.</h2><p>Assembly Required is engine build-book software with revision tracking. It connects design decisions, specifications, as-built records and test outcomes so the next build starts with evidence rather than a search through old notes.</p><p>Spintron and dyno DOE managers complement the build book by organizing planned runs, actual settings, notes and source-data links.</p><a class="button" href="https://bobsporkandbeans.github.io/ar-buildbook-5c60242a53/" target="_blank" rel="noopener noreferrer">Open the build-book demo <span aria-hidden="true">↗</span></a><p class="small">Public, read-only demo with demo data. Phone-friendly. Opens in a new tab.</p></div>
+   <div class="how"><h3>How I work with AI</h3><p>I direct teams of AI coding agents to build and validate engineering software at a pace a small shop normally could not.</p><p>I own the physics, test data, acceptance checks and engineering judgment. Agents help implement and test the tools. Agreement with a test, a reference case or a conservation check has to be demonstrated, not asserted.</p><p class="small">The useful result is a tool I can question and a result I can trace, not a larger pile of code.</p></div>
+  </div>
+ </section>
+</main>
+<footer><div class="wrap"><img class="mark" src="assets/img/nr-parent-dark.png" alt="Naber Research"><h2>Talk engineering.</h2><a class="contact" href="mailto:clayton@naber-research.com">clayton@naber-research.com</a><a href="https://naber-research.com">naber-research.com ↗</a><p class="signature">Pro-level engineering for real racers.</p><p class="small muted">© Naber Research. Selected engineering work. Figures are masked or synthetic as labeled.</p></div></footer>
+</body>
+</html>
